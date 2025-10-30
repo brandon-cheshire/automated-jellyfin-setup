@@ -120,9 +120,9 @@ services:
       - /path/to/qbittorrent-downloads:/downloads
     restart: unless-stopped
 
-  flaresolverr:
+  byparr:
     image: ghcr.io/thephaseless/byparr:latest
-    container_name: flaresolverr
+    container_name: byparr
     network_mode: service:gluetun
     environment:
       - PUID=1000
