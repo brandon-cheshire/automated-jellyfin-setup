@@ -94,7 +94,7 @@ Under this each service will be added. The specific indentation in the following
 
 ```TS_AUTHKEY``` will need to be a generated auth key from the tailscale [admin site](https://login.tailscale.com/admin). Navigate to Settings->Personal Settings->Keys and generate auth key. It is displayed only once upon creation. Copy it and replace "your auth key goes here" above.
 
-```TS_SERVE_CONFIG``` defines the tailscale server config, in this case for Jellyfin. This will enable the tailscale funnel for remote access to the server.
+```TS_SERVE_CONFIG``` defines the tailscale server config, in this case for Jellyfin. This will enable the tailscale funnel for remote access to the Jellyfin server.
 
 Create the tailscale server config json for Jellyfin:
 
