@@ -367,7 +367,7 @@ If successful, there should be a print out of GPU information/status and process
 ## Jellyfin
 
 1) Go to http://localhost:8096
-2) Follow the setup wizard, make sure to allow remote connections to server.
+2) Follow the setup wizard.
 3) Add your tv and movies libraries, using the directories specified in the docker configuration.
 
 ## Qbittorrent
