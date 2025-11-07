@@ -94,24 +94,14 @@ Under this each service will be added. The specific indentation in the following
 
 ```TS_AUTHKEY``` will need to be a generated auth key from the tailscale [admin site](https://login.tailscale.com/admin). Navigate to Settings->Personal Settings->Keys and generate auth key. It is displayed only once upon creation. Copy it and replace "your auth key goes here" above.
 
-```volumes:``` are allocated for the service.
+```TS_SERVE_CONFIG``` defines the tailscale server config, in this case for Jellyfin. This will enable the tailscale funnel for remote access to the server.
 
-```devices:``` the container is given access to. In this case, the hosts tun device, which allows the container to create and manage its own virtual network tunnel.
-
-```ports:``` for Jellyfin are mapped to the host for LAN access.
-
-```dns``` defines dns handlers for Tailscale so that Jellyfin can resolve its DNS queries for metadata retrieval.
-
-```restart: unless-stopped``` tells docker to restart the service on boot unless it had been stopped before rebooting.
-
-Create a tailscale server config json for Jellyfin:
+Create the tailscale server config json for Jellyfin:
 
 ```bash
 mkdir ~/docker/tailscale
 touch ~/docker/tailscale/jellyfin.json
 ```
-
-This config file sets up the tailscale funnel for Jellyfin for remote access.
 
 Add the following to the config file:
 
@@ -136,6 +126,16 @@ Add the following to the config file:
   }
 }
 ```
+
+```volumes:``` are allocated for the service.
+
+```devices:``` the container is given access to. In this case, the hosts tun device, which allows the container to create and manage its own virtual network tunnel.
+
+```ports:``` for Jellyfin are mapped to the host for LAN access.
+
+```dns``` defines dns handlers for Tailscale so that Jellyfin can resolve its DNS queries for metadata retrieval.
+
+```restart: unless-stopped``` tells docker to restart the service on boot unless it had been stopped before rebooting.
 
 For more information on using tailscale with docker, see [here](https://github.com/tailscale-dev/docker-guide-code-examples).
 
