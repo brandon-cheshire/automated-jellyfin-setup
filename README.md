@@ -10,7 +10,7 @@ This docker container stack uses:
 - **Prowlarr** for indexers
 - **Byparr** for bypassing cloudflare protection
 
-Using this configuration, after adding shows and movies to be monitored with Sonarr/Radarr, the latter handle interaction with Prowlarr for searching (which handles the cloudflare bypass, if necessary) and qbittorrent for downloading, then copies those files to the appropriate Jellyfin media directories. Either qbittorrent or Sonarr/Radarr can handle the removal of superfluous downloaded files/records after they've been relocated, depending on preference and other considerations (covered later).
+Using this configuration, after adding shows and movies to be monitored with Sonarr/Radarr, the latter handle interaction with Prowlarr for searching (and cloudflare bypass, if necessary), qbittorrent for downloading, and copying those downloads to the appropriate Jellyfin media directories. Qbittorrent or Sonarr/Radarr can handle the removal of download files after they've been relocated, depending on preference and other considerations (covered later).
 
 # Docker Installation
 
