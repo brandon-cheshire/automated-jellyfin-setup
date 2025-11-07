@@ -57,7 +57,7 @@ Under this each service will be added. The specific indentation in the following
 
 ## Tailscale
 
-**Note:** You will have to sign up for a tailscale account.
+**Note:** Tailscale account required. Visit [https://login.tailscale.com/].
 
 ```
   tailscale:
@@ -67,7 +67,7 @@ Under this each service will be added. The specific indentation in the following
     environment:
       - PUID=1000
       - PGID=1000
-      - TS_AUTHKEY=[your auth key goes here]
+      - TS_AUTHKEY=your auth key goes here
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_SERVE_CONFIG=/config/jellyfin.json
     volumes:
@@ -80,6 +80,9 @@ Under this each service will be added. The specific indentation in the following
     ports:
       - 8096:8096 # jellyfin
       - 7359:7359 # jellyfin
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
     restart: unless-stopped
 ```
 
@@ -89,7 +92,7 @@ Under this each service will be added. The specific indentation in the following
 
 ```PUID=1000``` and ```PGID=1000``` refer to your user. Confirm they are correct by running ```id``` in the terminal. 
 
-```TS_AUTHKEY``` will need to be a generated auth key from the tailscale [admin site](https://login.tailscale.com/admin). Navigate to Settings->Personal Settings->Keys and generate auth key. It is displayed only once upon creation. 
+```TS_AUTHKEY``` will need to be a generated auth key from the tailscale [admin site](https://login.tailscale.com/admin). Navigate to Settings->Personal Settings->Keys and generate auth key. It is displayed only once upon creation. Copy it and replace "your auth key goes here" above.
 
 ```volumes:``` are allocated for the service.
 
@@ -97,7 +100,42 @@ Under this each service will be added. The specific indentation in the following
 
 ```ports:``` for Jellyfin are mapped to the host for LAN access.
 
+```dns``` defines dns handlers for Tailscale so that Jellyfin can resolve its DNS queries for metadata retrieval.
+
 ```restart: unless-stopped``` tells docker to restart the service on boot unless it had been stopped before rebooting.
+
+Create a tailscale server config json for Jellyfin:
+
+```bash
+mkdir ~/docker/tailscale
+touch ~/docker/tailscale/jellyfin.json
+```
+
+This config file sets up the tailscale funnel for Jellyfin for remote access.
+
+Add the following to the config file:
+
+```
+{
+  "TCP": {
+    "443": {
+      "HTTPS": true
+    }
+  },
+  "Web": {
+    "${TS_CERT_DOMAIN}:443": {
+      "Handlers": {
+        "/": {
+          "Proxy": "http://127.0.0.1:8096"
+        }
+      }
+    }
+  },
+  "AllowFunnel": {
+    "${TS_CERT_DOMAIN}:443": true
+  }
+}
+```
 
 For more information on using tailscale with docker, see [here](https://github.com/tailscale-dev/docker-guide-code-examples).
 
@@ -444,4 +482,15 @@ Some good, tested indexers include: 1337x, Bitsearch, Extratorrent.st, EZTV, kic
 
 ## Tailscale
 
-To access the Jellyfin media server remotely, connect to the tailscale network on the client device and then connect to the jellyfin server using http://jellyfin:8096 ('jellyfin' was the hostname used in the docker compose file for the tailscale service) or using the IP address of the host machine on the tailscale network, this can be found on the tailscale [admin page](https://login.tailscale.com/admin), (i.e. 100.100.100.100:8096).
+### Enable MagicDNS, HTTPS Certificates, and Funnel
+
+1) Sign into your tailscale [admin panel](https://login.tailscale.com/admin).
+2) Navigate to DNS and ensure MagicDNS and HTTPS Certificates are enabled.
+3) Navigate to Access Controls->Node Attributes->Add Node Attribute.
+4) In the targets dropdown select all users and devices. In the attributes dropdown select funnel. Click Save node attribute.
+
+### To access the Jellyfin media server remotely
+
+1) Run ```docker exec tailscale tailscale serve status```
+2) Use the given URL to sign in to the server on the Jellyfin app. This information can also be found in the Tailscale [admin panel](https://login.tailscale.com/admin) under Machines and the addresses dropdown for your host machine
+3) Use your Jellyfin credentials to sign in to your user on the server.
