@@ -1,6 +1,6 @@
 # Setting up an automated Jellyfin media server
 
-This setup uses Arch Linux (but should work with other distros) and uses docker container gpu access with the nvidia-container-toolkit for transcoding.
+This setup uses Arch Linux (but should work with other distros) and docker container gpu access with the nvidia-container-toolkit for transcoding.
 
 This docker container stack uses:
 - **Tailscale** for remote access
