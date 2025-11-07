@@ -133,7 +133,7 @@ Add the following to the config file:
 
 ```ports:``` for Jellyfin are mapped to the host for LAN access.
 
-```dns``` defines dns handlers for Tailscale so that Jellyfin can resolve its DNS queries for metadata retrieval.
+```dns``` defines DNS handlers for Tailscale so that Jellyfin can resolve its DNS queries for metadata retrieval.
 
 ```restart: unless-stopped``` tells docker to restart the service on boot unless it had been stopped before rebooting.
 
