@@ -57,7 +57,7 @@ Under this each service will be added. The specific indentation in the following
 
 ## Tailscale
 
-**Note:** Tailscale account required. Visit [https://login.tailscale.com/].
+**Note:** Tailscale account required. Visit https://login.tailscale.com/.
 
 ```
   tailscale:
