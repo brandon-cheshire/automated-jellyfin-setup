@@ -492,5 +492,5 @@ Some good, tested indexers include: 1337x, Bitsearch, Extratorrent.st, EZTV, kic
 ### To access the Jellyfin media server remotely
 
 1) Run ```docker exec tailscale tailscale serve status```
-2) Use the given URL to sign in to the server on the Jellyfin app. This information can also be found in the Tailscale [admin panel](https://login.tailscale.com/admin) under Machines and the addresses dropdown for your host machine
+2) Use the given URL to sign in to the server on the Jellyfin app. This URL can also be found and customized in the Tailscale [admin panel](https://login.tailscale.com/admin) under Machines and the addresses dropdown for your host machine
 3) Use your Jellyfin credentials to sign in to your user on the server.
