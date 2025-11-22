@@ -1,6 +1,6 @@
 # Setting up an automated Jellyfin media server
 
-This setup uses Arch Linux (but should work with other distros) and docker container gpu access with the nvidia-container-toolkit for transcoding.
+This setup uses Arch Linux (but should work with other distros) and docker container gpu passthrough with the nvidia-container-toolkit for transcoding.
 
 This docker container stack uses:
 - **Tailscale** for remote access
@@ -177,8 +177,6 @@ For more information on using tailscale with docker, see [here](https://github.c
 ```VPN_PORT_FORWARDING_UP_COMMAND``` runs a command that automatically updates qbittorrent's listening port when a port has been successfully forwarded.
 
 This configuration is set up for protonVPN which supports port forwarding over the wireguard protocol. Other providers/protocols will require modified variables. To that end, see gluetun documentation [here](https://github.com/qdm12/gluetun-wiki/blob/main/setup/readme.md#setup).
-
-**Note:** Port forwarding has not worked when manually specifying countries and/or cities to connect to using the ```countries``` and ```cities``` environment variables. 
 
 ## Qbittorrent
 
