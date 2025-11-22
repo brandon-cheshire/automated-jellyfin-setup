@@ -143,7 +143,7 @@ For more information on using tailscale with docker, see [here](https://github.c
 
 ```
   gluetun:
-    image: qmcgaw/gluetun:v3.40.0
+    image: qmcgaw/gluetun:latest
     container_name: gluetun
     cap_add:
       - NET_ADMIN
@@ -165,6 +165,8 @@ For more information on using tailscale with docker, see [here](https://github.c
       - PORT_FORWARD_ONLY=on
       - VPN_PORT_FORWARDING=on
       - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c 'wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:8080/api/v2/app/setPreferences 2>&1'
+      - SERVER_COUNTRIES=Canada
+      - SERVER_CITIES=Toronto, Montreal
     restart: unless-stopped
 ```
 
@@ -175,6 +177,10 @@ For more information on using tailscale with docker, see [here](https://github.c
 ```WIREGUARD_PRIVATE_KEY``` is the private key from a manually generated wireguard configuration file which can be made when signing into a proton account. NAT-PMP must also be enabled for port forwarding.
 
 ```VPN_PORT_FORWARDING_UP_COMMAND``` runs a command that automatically updates qbittorrent's listening port when a port has been successfully forwarded.
+
+```SERVER_COUNTRIES``` specifies which countries servers to connect to.
+
+```SERVER_CITIES``` further specifies the city servers to connect to.
 
 This configuration is set up for protonVPN which supports port forwarding over the wireguard protocol. Other providers/protocols will require modified variables. To that end, see gluetun documentation [here](https://github.com/qdm12/gluetun-wiki/blob/main/setup/readme.md#setup).
 
