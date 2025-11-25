@@ -406,7 +406,7 @@ If there is difficulty with seeding torrents, especially while behind VPN (which
 
 1) Go to http://localhost:8080
 2) Navigate to Tools->Options->Bittorrent
-3) Under Seeding Limits, check the box for When Seeding Time Reaches and set it to 10 minutes, this will give Sonarr/Radarr time to move the completed downloads to the appropriate directories.
+3) Under Seeding Limits, check the box for When Seeding Time Reaches and set it to 30 minutes, this will give Sonarr/Radarr time to move the completed downloads to the appropriate directories.
 4) Click save.
 
 ## Prowlarr
